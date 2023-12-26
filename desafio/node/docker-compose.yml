@@ -6,7 +6,7 @@ services:
       context: nginx
       dockerfile: Dockerfile
     container_name: nginx
-    entrypoint: dockerize -wait tcp://app:3000 -timeout 45s
+    entrypoint: dockerize -wait http://app:3000 -timeout 90s
     command: nginx -g 'daemon off;'
     networks:
       - node-net
@@ -26,6 +26,7 @@ services:
     tty: true
     volumes:
       - ./app:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - node-net
     depends_on:
